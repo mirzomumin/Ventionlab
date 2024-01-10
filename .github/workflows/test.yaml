@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - test
-    types: [opened, edited, synchronize, reopened]
+
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
