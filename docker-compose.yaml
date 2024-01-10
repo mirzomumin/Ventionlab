@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  web:
+    image: web
+    container_name: web_app
+    build: ./backend
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend/:/code/
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    container_name: postgres_db
+    image: postgres
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5433:5432"
+    volumes:
+      - .:/code/
+
+  frontend:
+    build: ./frontend
+    command: >
+      bash -c "yarn dev"
+    ports:
+      - "5173:5173"
+    profiles:
+      - frontend
+    env_file:
+      - ./frontend/.env
+
+  redis:
+    image: redis
+    expose:
+      - 6379

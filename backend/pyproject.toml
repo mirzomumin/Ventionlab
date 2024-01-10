@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "ventionlab"
+version = "0.1.0"
+description = ""
+authors = ["mirzomumin <mirzomumin@list.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+django = "4.2.7"
+python-dotenv = "1.0.0"
+django-crispy-forms = "2.1"
+crispy-bootstrap5 = "2023.10"
+django-ckeditor = "6.7.0"
+django-unfold = "0.17.1"
+drf-spectacular = "0.26.5"
+djangorestframework = "3.14.0"
+django-cors-headers = "^4.3.1"
+coverage = "7.3.2"
+pytest = "7.4.3"
+pytest-django = "4.7.0"
+djangorestframework-simplejwt = {extras = ["crypto"], version = "^5.3.1"}
+pre-commit = "^3.5.0"
+psycopg2-binary = "^2.9.9"
+django-filter = "^23.5"
+factory-boy = "^3.3.0"
+channels = {extras = ["daphne"], version = "^4.0.0"}
+channels-redis = "^4.1.0"
+
+
+[tool.poetry.group.prod.dependencies]
+django = "4.2.7"
+python-dotenv = "1.0.0"
+django-crispy-forms = "2.1"
+crispy-bootstrap5 = "2023.10"
+django-ckeditor = "6.7.0"
+django-unfold = "0.17.1"
+drf-spectacular = "0.26.5"
+djangorestframework = "3.14.0"
+django-cors-headers = "^4.3.1"
+djangorestframework-simplejwt = {extras = ["crypto"], version = "^5.3.1"}
+psycopg2-binary = "^2.9.9"
+django-filter = "^23.5"
+channels = {extras = ["daphne"], version = "^4.0.0"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

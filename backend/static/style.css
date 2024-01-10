@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.login__root {
+  display: flex;
+  justify-content: center;
+}
+
+.login__form {
+  border-radius: 12pt;
+  border: 1px solid gray;
+  padding: 20pt 50pt;
+  margin-top: 10%;
+}
+
+.form__title {
+  margin: 5pt;
+  text-align: center;
+  font-size: 24pt;
+}
+
+.courses__container {
+  margin-top: 10pt;
+  padding: 10pt 20pt;
+  width: 100%;
+}
+
+.course-card {
+  margin-bottom: 10pt;
+  gap: 10pt;
+}
+
+.modal__container {
+  margin-top: 10pt;
+  display: flex;
+  justify-content: center;
+}

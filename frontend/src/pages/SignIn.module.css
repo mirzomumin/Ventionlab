@@ -1,0 +1,66 @@
+.root {
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.left__side {
+  width: 40%;
+  background: url('../assets/images/login.png') no-repeat 0 0 !important;
+  background-size: cover;
+}
+
+.right__side {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin {
+  width: 40%;
+  padding: 20pt;
+  border: 1px solid #2f362f;
+  border-radius: 4pt;
+}
+
+.signin button {
+  font-weight: bolder;
+  margin-top: 10pt;
+  margin-bottom: 10pt;
+  background-color: #5afb7a;
+}
+
+.signin button:hover {
+  background-color: #ff6fff;
+}
+
+.form__headline {
+  text-align: center;
+  padding-bottom: 4pt;
+  text-transform: uppercase;
+}
+
+.form__support {
+  text-align: center;
+}
+
+@media screen and (max-width: 1400px) {
+  .left__side {
+    width: 50%;
+  }
+  .right__side {
+    min-width: 50%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .left__side {
+    display: none;
+    width: 0;
+  }
+  .right__side {
+    min-width: 100vw;
+  }
+}

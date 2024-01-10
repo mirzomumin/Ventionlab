@@ -1,0 +1,40 @@
+name: dev-code
+
+on:
+  push:
+    branches:
+      - dev
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Retrieve PR url
+        run: |
+          echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
+
+      - name: Check if PR already exists
+        id: check-pr-exists
+        run: |
+          prs=$(gh pr list -B test -H dev)  
+          # Even when there are no PRs, this array always seems to have 1 result
+          echo Size of PRS ARRAY: ${#prs[@]}
+          # Locally, it seems the gh cli says 'no pull requests match your search..' but not here.
+          # The first element exists but is of length 0
+          echo Length of PRS[0] string: ${#prs[0]}
+          
+          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+            echo skipping PR creation
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Pull Request
+        if: '!steps.check-pr-exists.outputs.skip'
+        run: |
+          gh pr create -B test -H dev --title 'Merge dev into test' --body "${{ env.PR_URL }}"
