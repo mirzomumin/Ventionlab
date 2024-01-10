@@ -4,10 +4,7 @@ on:
   pull_request:
     branches:
       - test
-    types:
-      - opened
-      - edited
-      - synchronize
+    types: [opened, edited, synchronize, reopened]
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -99,8 +96,8 @@ jobs:
         run: |
           prs=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
-            --head 'dev' \
-            --base 'test' \
+            --head 'test' \
+            --base 'master' \
             --json title \
             --jq 'length')
           if ((prs > 0)); then
