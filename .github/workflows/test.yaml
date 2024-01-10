@@ -95,7 +95,7 @@ jobs:
           echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
 
       - name: Check if PR already exists
-        id: check-pr-exists
+        id: check
         run: |
           prs=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
