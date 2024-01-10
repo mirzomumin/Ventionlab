@@ -11,6 +11,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     env:
       SECRET_KEY: ${{ vars.SECRET_KEY }}
       DEBUG: ${{ vars.DEBUG }}
@@ -77,6 +79,10 @@ jobs:
         working-directory: ./backend
         run: |
           coverage report -m
+
+      - name: auto-approve
+        id: auto-approve
+        uses: hmarr/auto-approve-action@v3
 
       - name: automerge
         id: automerge
