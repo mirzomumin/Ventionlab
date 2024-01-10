@@ -57,8 +57,8 @@ jobs:
       - name: Check if PR opened by bot
         id: check_bot
         run: |
-        echo "::set-output name=is_bot::${{ github.event.pull_request.user.login == 'bot' }}"
-        echo ${{ github.event.pull_request.user.login }}
+          echo "::set-output name=is_bot::${{ github.event.pull_request.user.login == 'bot' }}"
+          echo ${{ github.event.pull_request.user.login }}
 
       - name: Checkout
         if: steps.check_bot.outputs.is_bot == 'true'
