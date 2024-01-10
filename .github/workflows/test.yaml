@@ -37,13 +37,14 @@ jobs:
           - ${{ vars.CHANNEL_PORT }}:${{ vars.CHANNEL_PORT }}
 
       postgres:
+        # Docker Hub image
         image: postgres:14
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         ports:
-          - 5432:5432
+          - ${{ vars.DB_PORT }}:${{ vars.DB_PORT }}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
