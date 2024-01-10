@@ -37,6 +37,7 @@ jobs:
           - ${{ vars.CHANNEL_PORT }}:${{ vars.CHANNEL_PORT }}
 
       postgres:
+        # Docker Hub image
         image: postgres:14
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
