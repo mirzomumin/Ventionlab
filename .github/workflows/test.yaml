@@ -22,6 +22,18 @@ jobs:
       DB_HOST: ${{ vars.DB_HOST }}
       DB_PORT: ${{ vars.DB_PORT }}
     services:
+      redis:
+        # Docker Hub image
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - ${{ vars.CHANNEL_PORT }}:${{ vars.CHANNEL_PORT }}
+
       postgres:
         image: postgres:14
         env:
