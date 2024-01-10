@@ -53,15 +53,6 @@ jobs:
           poetry config virtualenvs.create false && \
           poetry install --only dev --no-interaction --no-ansi
 
-      # - name: Pass secrets as virtual variables
-      #   shell: bash
-      #   working-directory: ./backend
-
-        
-        # run:
-        #   echo ${{ SECRET_KEY }} >> .env
-        #   fbrusrbgr
-
       - name: Test with pytest
         working-directory: ./backend
         id: test
