@@ -78,6 +78,12 @@ jobs:
         run: |
           coverage report -m
 
+      - name: automerge
+        id: automerge
+        uses: "pascalgn/automerge-action@v0.16.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
       - name: Retrieve PR url
         run: |
           echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
