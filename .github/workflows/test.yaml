@@ -4,6 +4,10 @@ on:
   pull_request:
     branches:
       - test
+    types:
+      - opened
+      - edited
+      - synchronize
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -90,6 +94,20 @@ jobs:
         run: |
           echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
 
+      - name: Check if PR already exists
+        id: check-pr-exists
+        run: |
+          prs=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --head 'dev' \
+            --base 'test' \
+            --json title \
+            --jq 'length')
+          if ((prs > 0)); then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create Pull Request
+        if: '!steps.check.outputs.skip'
         run: |
           gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}"
