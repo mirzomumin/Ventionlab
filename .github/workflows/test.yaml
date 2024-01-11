@@ -7,8 +7,8 @@ on:
 
   workflow_run:
     workflows: [dev-code]
-    types:
-      - completed
+    types: [completed]
+    branches: [dev]
 
 
 env:
