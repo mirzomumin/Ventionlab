@@ -5,7 +5,7 @@ on:
     workflows: ["Code dev"]
     types:
       - completed
-    branches: [dev]
+    branches: [feature]
 
 
 env:
