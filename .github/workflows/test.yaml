@@ -2,9 +2,10 @@ name: workflow_2
 
 on:
   workflow_run:
-    workflows: [workflow_1]
+    workflows: ["workflow_1"]
     types: [completed]
-    branches: [dev]
+    branches:
+      - "dev"
 
 
 env:
@@ -108,4 +109,4 @@ jobs:
       - name: Create Pull Request
         if: '!steps.check.outputs.skip'
         run: |
-          gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r mirzomumin
+          gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin,abduvohidd'
