@@ -1,11 +1,11 @@
-name: Code test
+name: workflow_2
 
 on:
   workflow_run:
-    workflows: ["Code dev"]
+    workflows: [workflow_1]
     types:
       - completed
-    branches: [feature]
+    branches: [dev]
 
 
 env:
