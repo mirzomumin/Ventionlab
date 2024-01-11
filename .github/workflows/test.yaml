@@ -4,6 +4,10 @@ on:
   pull_request:
     branches:
       - test
+  workflow_run:
+    workflows: [dev-code]
+    types:
+      - completed
 
 
 env:
