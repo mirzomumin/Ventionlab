@@ -108,4 +108,4 @@ jobs:
       - name: Create Pull Request
         if: '!steps.check.outputs.skip'
         run: |
-          gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" --add-reviewer 'mirzomumin'
+          gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" --add-reviewer mirzomumin
