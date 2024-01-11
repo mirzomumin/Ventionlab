@@ -1,9 +1,10 @@
 name: Code test
 
 on:
-  pull_request:
-    branches:
-      - test
+  # pull_request:
+  #   branches:
+  #     - test
+
   workflow_run:
     workflows: [dev-code]
     types:
