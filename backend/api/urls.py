@@ -13,9 +13,6 @@ auth_urlpatterns = [
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 
-
-
-
 urlpatterns = [
     path("healthcheck/", views.healthcheck),
     path("courses/", include(course_router.urls)),
