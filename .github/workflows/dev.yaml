@@ -1,4 +1,4 @@
-name: dev_code
+name: Code dev
 
 on:
   push:

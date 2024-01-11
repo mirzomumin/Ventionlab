@@ -2,9 +2,10 @@ name: Code test
 
 on:
   workflow_run:
-    workflows: ["dev_code"]
+    workflows: ["Code dev"]
     types:
       - completed
+    branches: [dev]
 
 
 env:
