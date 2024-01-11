@@ -2,9 +2,10 @@ name: workflow_2
 
 on:
   workflow_run:
-    workflows: [workflow_1]
+    workflows: ["workflow_1"]
     types: [completed]
-    branches: [dev]
+    branches:
+      - "dev"
 
 
 env:
