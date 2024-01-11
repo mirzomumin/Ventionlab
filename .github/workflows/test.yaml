@@ -1,10 +1,13 @@
 name: workflow_2
 
 on:
+  pull_request:
+    branches:
+      - test
+
   workflow_run:
     workflows: [workflow_1]
-    types:
-      - completed
+    types: [completed]
     branches: [dev]
 
 
