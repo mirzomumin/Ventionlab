@@ -5,26 +5,47 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Record creation time')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Time of record change')),
-                ('title', models.CharField(max_length=250)),
-                ('description', ckeditor.fields.RichTextField()),
-                ('level', models.IntegerField(choices=[(1, 'Easy'), (2, 'Medium'), (3, 'Advanced')], null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Record creation time"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Time of record change"
+                    ),
+                ),
+                ("title", models.CharField(max_length=250)),
+                ("description", ckeditor.fields.RichTextField()),
+                (
+                    "level",
+                    models.IntegerField(
+                        choices=[(1, "Easy"), (2, "Medium"), (3, "Advanced")], null=True
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Course',
-                'verbose_name_plural': 'Courses',
+                "verbose_name": "Course",
+                "verbose_name_plural": "Courses",
             },
         ),
     ]
