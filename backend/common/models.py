@@ -10,7 +10,7 @@ class BaseModel(models.Model):
     )
     updated_at = models.DateTimeField(
         "Time of record change",
-        auto_now=True
+        auto_now=True,
     )
 
     class Meta:
