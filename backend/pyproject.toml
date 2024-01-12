@@ -29,6 +29,8 @@ django-filter = "^23.5"
 factory-boy = "^3.3.0"
 channels = {extras = ["daphne"], version = "^4.0.0"}
 channels-redis = "^4.1.0"
+black = "^23.12.1"
+isort = "^5.13.2"
 
 
 [tool.poetry.group.prod.dependencies]
