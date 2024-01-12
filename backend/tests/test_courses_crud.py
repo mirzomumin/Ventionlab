@@ -49,7 +49,9 @@ def test_course_create_view(api_client):
     assert response.status_code == 302
     assert Course.objects.all().count() == 1
     assert Course.objects.filter(title=python_course_data["title"]).exists()
-    assert Course.objects.filter(description=python_course_data["description"]).exists()
+    assert Course.objects.filter(
+        description=python_course_data["description"]
+    ).exists()
     assert Course.objects.filter(level=python_course_data["level"]).exists()
 
 
@@ -72,7 +74,9 @@ def test_course_update_view(api_client):
     response = api_client.post(url, data=updated_data)
     assert response.status_code == 302
     assert Course.objects.filter(title=updated_data["title"]).exists()
-    assert Course.objects.filter(description=updated_data["description"]).exists()
+    assert Course.objects.filter(
+        description=updated_data["description"]
+    ).exists()
     assert Course.objects.filter(level=updated_data["level"]).exists()
 
 
@@ -89,5 +93,7 @@ def test_course_delete_view(api_client):
     response = api_client.post(url)
     assert response.status_code == 302
     assert not Course.objects.filter(title=python_course.title).exists()
-    assert not Course.objects.filter(description=python_course.description).exists()
+    assert not Course.objects.filter(
+        description=python_course.description
+    ).exists()
     assert not Course.objects.filter(level=python_course.level).exists()

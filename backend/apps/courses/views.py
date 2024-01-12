@@ -1,6 +1,7 @@
 from apps.courses.forms import CourseForm
 from apps.courses.models import Course, LessonInCourse
-from apps.courses.serializers.courses import CourseSerializer, LessonInCourseSerializer
+from apps.courses.serializers.courses import (
+    CourseSerializer, LessonInCourseSerializer)
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
@@ -30,7 +31,9 @@ class CourseViewSet(ModelViewSet):
     ]
 
     @action(detail=True, methods=["get"], url_path=r"lessons")
-    def get_course_lessons(self, request: HttpRequest, pk: int) -> HttpResponse:
+    def get_course_lessons(
+        self, request: HttpRequest, pk: int
+    ) -> HttpResponse:
         queryset = LessonInCourse.objects.filter(course=pk)
         serializer_class = LessonInCourseSerializer(queryset, many=True)
         return Response(serializer_class.data, status=status.HTTP_200_OK)

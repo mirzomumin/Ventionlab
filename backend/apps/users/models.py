@@ -21,7 +21,11 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email: str, password: str, **extra_fields) -> UserType:
+    def create_superuser(
+        self, email: str,
+        password: str,
+        **extra_fields
+    ) -> UserType:
         if password is None:
             raise TypeError("password is required")
         extra_fields.setdefault("is_staff", True)
@@ -40,7 +44,8 @@ class User(BaseModel, AbstractUser):
     email = models.EmailField(db_index=True, unique=True)
 
     description = models.CharField(max_length=255, null=True, blank=True)
-    avatar = models.CharField(max_length=255, null=True, blank=True)  # May use S3
+    avatar = models.CharField(
+        max_length=255, null=True, blank=True)  # May use S3
     is_mentor = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
@@ -77,7 +82,8 @@ class InternshipParticipant(BaseModel):
     role = models.PositiveSmallIntegerField(choices=UserRole.choices)
 
     user = models.ForeignKey(
-        to=User, on_delete=models.CASCADE, related_name="internship_participants"
+        to=User, on_delete=models.CASCADE,
+        related_name="internship_participants",
     )
     alias = models.CharField(max_length=25, null=True, blank=True)
 
@@ -92,7 +98,9 @@ class InternshipParticipant(BaseModel):
 class InternshipGroup(BaseModel):
     title = models.CharField(max_length=250)
     course = models.ForeignKey(
-        to="courses.Course", on_delete=models.PROTECT, related_name="internships"
+        to="courses.Course",
+        on_delete=models.PROTECT,
+        related_name="internships"
     )
     participants = models.ManyToManyField(
         to=InternshipParticipant,
@@ -109,7 +117,8 @@ class InternshipGroup(BaseModel):
             models.CheckConstraint(
                 check=~models.Q(start_date__gt=models.F("end_date")),
                 name="end_date_checker",
-                violation_error_message="End date cannot be early than start date.",
+                violation_error_message="End date cannot be \
+                        early than start date.",
             ),
         ]
 
