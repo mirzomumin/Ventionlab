@@ -3,16 +3,15 @@ name: Lint
 on:
   # Trigger the workflow on pull request,
   # but only for the dev branch
-  pull_request_review:
-    types:
-      - submitted
+  pull_request:
+    # types:
+    #   - submitted
     branches:
       - dev
 
 jobs:
   run-linters:
-    if: github.event.review.state == 'APPROVED'
-    name: Run linters
+    name: Format code
     runs-on: ubuntu-latest
 
     steps:
@@ -25,20 +24,14 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install black
+        run: pip install black ruff isort
 
       - name: Run linters
-        uses: super-linter/super-linter@v5.7.2
-        env:
-          LINTER_RULES_PATH: 'config/lint'
-          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          # PYTHON_BLACK_CONFIG_FILE: .python-black
-          # VALIDATE_PYTHON_BLACK: true
-
-          PYTHON_FLAKE8_CONFIG_FILE: .flake8
-          VALIDATE_PYTHON_FLAKE8: true
+        uses: wearerequired/lint-action@v2
+        with:
+          black: true
+          ruff: true
+          isort: true
 
       - name: automerge
         id: automerge
