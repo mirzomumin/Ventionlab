@@ -9,6 +9,12 @@ on:
     branches:
       - dev
 
+# on:
+#   pull_request:
+#     types: [labeled]
+#     branches:
+#       - dev
+
 jobs:
   run-linters:
     if: github.event.review.state == 'APPROVED'
@@ -25,13 +31,21 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install black ruff
+        run: pip install black flake8
 
       - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          black: true
-          ruff: true
+        uses: super-linter/super-linter@v5.7.2
+        env:
+          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # DISABLE_ERRORS: true
+
+          PYTHON_BLACK_CONFIG_FILE: .python-black
+          VALIDATE_PYTHON_BLACK: true
+          # PYTHON_FLAKE8_CONFIG_FILE: .flake8
+          # VALIDATE_PYTHON_FLAKE8: true
+      - name: Run ruff linter
+        uses: chartboost/ruff-action@v1
 
       - name: automerge
         id: automerge
