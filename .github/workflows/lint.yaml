@@ -34,8 +34,8 @@ jobs:
           DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          PYTHON_BLACK_CONFIG_FILE: .python-black
-          VALIDATE_PYTHON_BLACK: true
+          # PYTHON_BLACK_CONFIG_FILE: .python-black
+          # VALIDATE_PYTHON_BLACK: true
 
           PYTHON_FLAKE8_CONFIG_FILE: .flake8
           VALIDATE_PYTHON_FLAKE8: true

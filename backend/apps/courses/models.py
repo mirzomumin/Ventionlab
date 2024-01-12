@@ -29,7 +29,10 @@ class Course(BaseModel):
 
     class Meta:
         constraints = [
-            UniqueConstraint(Lower("title"), name="course_insensitive_restriction")
+            UniqueConstraint(
+                Lower("title"),
+                name="course_insensitive_restriction"
+            )
         ]
         verbose_name = "Course"
         verbose_name_plural = "Courses"
@@ -52,7 +55,10 @@ class Lesson(models.Model):
 
     class Meta:
         constraints = [
-            UniqueConstraint(Lower("title"), name="lesson_insensitive_restriction")
+            UniqueConstraint(
+                Lower("title"),
+                name="lesson_insensitive_restriction"
+            )
         ]
         verbose_name = "Lesson"
         verbose_name_plural = "Lessons"
@@ -82,7 +88,8 @@ class Comment(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
 
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey(
+        "self", null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ("published_date",)

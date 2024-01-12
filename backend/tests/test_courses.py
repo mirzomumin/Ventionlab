@@ -17,22 +17,30 @@ from .factories import CategoryFactory, CourseFactory
         ("?search=css", []),
     ],
 )
-def test_search_filter_course(api_client, search_params, expected_course_titles):
+def test_search_filter_course(
+    api_client, search_params,
+    expected_course_titles
+):
     python_category = CategoryFactory.create(name="python", id=1)
     programming_category = CategoryFactory.create(name="programming", id=2)
     java_category = CategoryFactory.create(name="java", id=3)
 
-    java_course = CourseFactory.create(
-        title="Java Developer", level=3, category=[java_category, programming_category]
-    )
-    python_course = CourseFactory.create(
+    CourseFactory.create(
+        title="Java Developer",
+        level=3,
+        category=[java_category, programming_category],
+    ) # noqa
+    CourseFactory.create(
         title="Python Developer",
         level=2,
         category=[python_category, programming_category],
     )
-    some_course = CourseFactory.create(title="Some Course", level=2)
+    CourseFactory.create(title="Some Course", level=2)
 
     response = api_client.get(f"/api/courses/{search_params}")
 
     assert response.status_code == status.HTTP_200_OK
-    assert all(course["title"] in expected_course_titles for course in response.json())
+    assert all(
+        course["title"] in expected_course_titles
+        for course in response.json()
+    )

@@ -6,7 +6,8 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("courses", "0002_category_tag_course_language_alter_course_level_and_more"),
+        ("courses",
+            "0002_category_tag_course_language_alter_course_level_and_more"),
     ]
 
     operations = [
@@ -19,7 +20,9 @@ class Migration(migrations.Migration):
             model_name="course",
             name="level",
             field=models.IntegerField(
-                choices=[(1, "Easy"), (2, "Medium"), (3, "Advanced")], null=True
+                choices=[
+                    (1, "Easy"), (2, "Medium"), (3, "Advanced")
+                ], null=True
             ),
         ),
         migrations.AlterField(
