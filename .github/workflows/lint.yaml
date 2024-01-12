@@ -37,8 +37,8 @@ jobs:
           PYTHON_BLACK_CONFIG_FILE: .python-black
           VALIDATE_PYTHON_BLACK: true
 
-      - name: Run ruff linter
-        uses: chartboost/ruff-action@v1
+          PYTHON_FLAKE8_CONFIG_FILE: .flake8
+          VALIDATE_PYTHON_FLAKE8: true
 
       - name: automerge
         id: automerge
