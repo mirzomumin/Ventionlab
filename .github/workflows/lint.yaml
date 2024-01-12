@@ -27,6 +27,7 @@ jobs:
         run: pip install black ruff isort
 
       - name: Run linters
+        working-directory: ./backend
         uses: wearerequired/lint-action@v2
         with:
           # black: true
