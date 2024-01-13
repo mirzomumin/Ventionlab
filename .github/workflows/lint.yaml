@@ -27,7 +27,7 @@ jobs:
           DEFAULT_BRANCH: master
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
-          PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+          # PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          # PYTHON_ISORT_CONFIG_FILE: pyproject.toml
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_PYTHON_ISORT: true
