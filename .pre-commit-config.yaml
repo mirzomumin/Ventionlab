@@ -26,7 +26,7 @@ repos:
         name: Black
         description: PEP 8 compliant opinionated formatter
         entry: black
-        args: ["--config", "./backend/pyproject.toml"]
+        args: ["--config", "pyproject.toml"]
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.12.0
