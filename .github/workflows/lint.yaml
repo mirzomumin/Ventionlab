@@ -4,8 +4,6 @@ on:
   # Trigger the workflow on pull request,
   # but only for the dev branch
   pull_request:
-    # types:
-    #   - submitted
     branches:
       - dev
 
@@ -18,25 +16,13 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install Python dependencies
-        run: pip install black ruff isort
-
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          # black: true
-          ruff: true
-          isort: true
-
-      - name: automerge
-        id: automerge
-        uses: "pascalgn/automerge-action@v0.16.2"
+      - name: Super-linter
+        uses: super-linter/super-linter@v5.7.2  # x-release-please-version
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: ""
-          MERGE_REQUIRED_APPROVALS: "2"
+          DEFAULT_BRANCH: master
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_PYTHON_ISORT: true

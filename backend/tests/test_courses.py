@@ -17,7 +17,9 @@ from .factories import CategoryFactory, CourseFactory
         ("?search=css", []),
     ],
 )
-def test_search_filter_course(api_client, search_params, expected_course_titles):
+def test_search_filter_course(
+    api_client, search_params, expected_course_titles
+):
     python_category = CategoryFactory.create(name="python", id=1)
     programming_category = CategoryFactory.create(name="programming", id=2)
     java_category = CategoryFactory.create(name="java", id=3)
@@ -37,4 +39,6 @@ def test_search_filter_course(api_client, search_params, expected_course_titles)
     response = api_client.get(f"/api/courses/{search_params}")
 
     assert response.status_code == status.HTTP_200_OK
-    assert all(course["title"] in expected_course_titles for course in response.json())
+    assert all(
+        course["title"] in expected_course_titles for course in response.json()
+    )
