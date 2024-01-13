@@ -2,7 +2,12 @@ from django import forms
 from django.contrib import admin
 
 from apps.users.forms import InternshipGroupForm, UserCreateForm
-from apps.users.models import InternshipGroup, InternshipParticipant, User, UserInCourse
+from apps.users.models import (
+    InternshipGroup,
+    InternshipParticipant,
+    User,
+    UserInCourse,
+)
 
 
 @admin.register(User)
@@ -16,7 +21,9 @@ class UserAdmin(admin.ModelAdmin):
             user_form.base_fields["description"].widget = forms.Textarea()
         return user_form
 
-    def get_fieldsets(self, request, obj=None) -> list[tuple[None, dict[str, list]]]:
+    def get_fieldsets(
+        self, request, obj=None
+    ) -> list[tuple[None, dict[str, list]]]:
         if obj is not None:
             self.fieldsets = (
                 (
@@ -45,7 +52,9 @@ class UserAdmin(admin.ModelAdmin):
                 ),
             )
         else:
-            self.fieldsets = [(None, {"fields": self.get_fields(request, obj)})]
+            self.fieldsets = [
+                (None, {"fields": self.get_fields(request, obj)})
+            ]
         return super().get_fieldsets(request, obj)
 
 

@@ -22,7 +22,9 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email: str, password: str, **extra_fields) -> UserType:
+    def create_superuser(
+        self, email: str, password: str, **extra_fields
+    ) -> UserType:
         if password is None:
             raise TypeError("password is required")
         extra_fields.setdefault("is_staff", True)
@@ -41,7 +43,9 @@ class User(BaseModel, AbstractUser):
     email = models.EmailField(db_index=True, unique=True)
 
     description = models.CharField(max_length=255, null=True, blank=True)
-    avatar = models.CharField(max_length=255, null=True, blank=True)  # May use S3
+    avatar = models.CharField(
+        max_length=255, null=True, blank=True
+    )  # May use S3
     is_mentor = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"

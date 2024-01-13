@@ -54,7 +54,9 @@ class Migration(migrations.Migration):
                     "username",
                     models.CharField(
                         error_messages={
-                            "unique": ("A user with that username" " already exists.")
+                            "unique": (
+                                "A user with that username" " already exists."
+                            )
                         },
                         help_text=(
                             "Required. 150 characters or"
@@ -64,7 +66,9 @@ class Migration(migrations.Migration):
                         max_length=150,
                         unique=True,
                         validators=[
-                            (django.contrib.auth.validators.UnicodeUsernameValidator())
+                            (
+                                django.contrib.auth.validators.UnicodeUsernameValidator()
+                            )
                         ],
                         verbose_name="username",
                     ),
@@ -125,7 +129,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "email",
-                    models.EmailField(db_index=True, max_length=254, unique=True),
+                    models.EmailField(
+                        db_index=True, max_length=254, unique=True
+                    ),
                 ),
                 (
                     "description",
@@ -313,7 +319,9 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name="internshipgroup",
             constraint=models.CheckConstraint(
-                check=models.Q(("start_date__gt", models.F("end_date")), _negated=True),
+                check=models.Q(
+                    ("start_date__gt", models.F("end_date")), _negated=True
+                ),
                 name="end_date_checker",
                 violation_error_message=(
                     "End date cannot be early " "than start date."

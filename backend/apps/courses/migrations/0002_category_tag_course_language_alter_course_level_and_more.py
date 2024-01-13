@@ -44,7 +44,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="course",
             name="language",
-            field=models.CharField(default=django.utils.timezone.now, max_length=32),
+            field=models.CharField(
+                default=django.utils.timezone.now, max_length=32
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(

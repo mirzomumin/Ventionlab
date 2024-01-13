@@ -16,13 +16,17 @@ class InternshipGroupForm(forms.ModelForm):
     mentors = forms.ModelMultipleChoiceField(
         queryset=User.objects.filter(is_mentor=True),
         required=False,
-        widget=FilteredSelectMultiple(verbose_name="Mentors", is_stacked=False),
+        widget=FilteredSelectMultiple(
+            verbose_name="Mentors", is_stacked=False
+        ),
     )
 
     students = forms.ModelMultipleChoiceField(
         queryset=User.objects.all(),
         required=False,
-        widget=FilteredSelectMultiple(verbose_name="Students", is_stacked=True),
+        widget=FilteredSelectMultiple(
+            verbose_name="Students", is_stacked=True
+        ),
     )
 
     class Meta:
