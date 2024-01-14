@@ -21,13 +21,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Super-linter
-        uses: super-linter/super-linter@v5.7.2  # x-release-please-version
-        env:
-          DEFAULT_BRANCH: master
-          # To report GitHub Actions status checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # PYTHON_BLACK_CONFIG_FILE: pyproject.toml
-          # PYTHON_ISORT_CONFIG_FILE: pyproject.toml
-          VALIDATE_PYTHON_BLACK: true
-          VALIDATE_PYTHON_ISORT: true
+      - name: Run Linters
+        uses: ricardochaves/python-lint@v1.4.0
+        with:
+          python-root-list: "python_alelo tests"
+          use-black: true
+          use-isort: true
