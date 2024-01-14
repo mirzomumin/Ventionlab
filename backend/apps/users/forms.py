@@ -9,7 +9,11 @@ from apps.users.services.queries import build_participants_qs_by_role
 class UserCreateForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ("username", "email", "is_mentor")
+        fields = (
+            "username",
+            "email",
+            "is_mentor",
+        )
 
 
 class InternshipGroupForm(forms.ModelForm):
