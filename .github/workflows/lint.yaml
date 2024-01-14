@@ -28,7 +28,7 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="/home/runner/.local/bin"
           poetry config virtualenvs.create false && \
-          poetry add black isort -G dev
+          poetry install --only dev --no-interaction --no-ansi
 
       - name: Run Linters
         run: |
