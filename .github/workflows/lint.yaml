@@ -34,4 +34,4 @@ jobs:
         working-directory: ./backend/
         run: |
           black --check .
-          isort --check-only --profile black .
+          isort --profile black --check-only .
