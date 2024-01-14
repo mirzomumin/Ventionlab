@@ -9,7 +9,7 @@ on:
 
 jobs:
   run-linters:
-    name: Format code
+    name: Check python code
     runs-on: ubuntu-latest
 
     steps:
@@ -21,13 +21,16 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install dependancy manager
+        working-directory: ./backend/
+        run: |
+          apt-get update
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="${PATH}:/root/.local/bin"
+          poetry config virtualenvs.create false && \
+          poetry add black isort -G dev
+
       - name: Run Linters
-        uses: ricardochaves/python-lint@v1.4.0
-        with:
-          python-root-list: "./backend/"
-          use-pylint: false
-          use-pycodestyle: false
-          use-flake8: false
-          use-black: true
-          use-mypy: false
-          use-isort: true
+        run: |
+          black --check .
+          isort --check-only .
