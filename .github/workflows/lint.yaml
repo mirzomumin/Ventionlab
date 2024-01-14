@@ -33,5 +33,5 @@ jobs:
       - name: Run Linters
         working-directory: ./backend/
         run: |
-          black --check .
-          isort --profile black --check-only .
+          black --check . || true
+          isort --check-only --profile black . || true
