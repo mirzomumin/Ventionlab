@@ -1,5 +1,6 @@
 # tests/test_courses_crud.py
 import pytest
+
 from apps.courses.models import Course
 from tests.factories import CategoryFactory, CourseFactory
 

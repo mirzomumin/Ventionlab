@@ -33,5 +33,5 @@ jobs:
       - name: Run Linters
         working-directory: ./backend/
         run: |
-          black --check . || true
-          isort --check-only --profile black . || true
+          black --check --config pyproject.toml .
+          isort --check-only --profile black .
