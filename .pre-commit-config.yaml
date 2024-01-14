@@ -33,4 +33,4 @@ repos:
       - id: isort
         name: Isort
         description: Sort imports alphabetically and automatically separate into sections and by type.
-        args: ["--filter-files"]
+        args: ["--profile", "black", "--filter-files"]
