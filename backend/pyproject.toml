@@ -58,7 +58,7 @@ build-backend = "poetry.core.masonry.api"
 line-length = 79
 
 [tool.isort]
-profile = "black"
+# profile = "black"
 py_version=311
 include_trailing_comma = true
 force_grid_wrap = 0
