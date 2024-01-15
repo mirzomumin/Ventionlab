@@ -5,12 +5,8 @@ on:
     workflows: ["workflow_1"]
     types: [completed]
     branches:
-      - 'dev'
+      # - 'dev'
       - 'feature'
-
-
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
