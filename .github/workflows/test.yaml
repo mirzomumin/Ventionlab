@@ -5,8 +5,8 @@ on:
     workflows: ["workflow_1"]
     types: [completed]
     branches:
-      - "dev"
-      - "feature"
+      - 'dev'
+      - 'feature'
 
 
 env:
