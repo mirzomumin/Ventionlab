@@ -1,7 +1,3 @@
-from apps.courses.forms import CourseForm
-from apps.courses.models import Course, LessonInCourse
-from apps.courses.serializers.courses import (
-    CourseSerializer, LessonInCourseSerializer)
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
@@ -11,6 +7,13 @@ from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+
+from apps.courses.forms import CourseForm
+from apps.courses.models import Course, LessonInCourse
+from apps.courses.serializers.courses import (
+    CourseSerializer,
+    LessonInCourseSerializer,
+)
 
 
 class CourseViewSet(ModelViewSet):

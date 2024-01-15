@@ -39,9 +39,8 @@ class Migration(migrations.Migration):
                 (
                     "level",
                     models.IntegerField(
-                        choices=[
-                            (1, "Easy"), (2, "Medium"), (3, "Advanced")
-                        ], null=True
+                        choices=[(1, "Easy"), (2, "Medium"), (3, "Advanced")],
+                        null=True,
                     ),
                 ),
             ],

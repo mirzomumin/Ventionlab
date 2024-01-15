@@ -12,8 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("auth", "0012_alter_user_first_name_max_length"),
-        ("courses",
-            "0003_alter_course_category_alter_course_level_and_more"),
+        ("courses", "0003_alter_course_category_alter_course_level_and_more"),
     ]
 
     operations = [
@@ -31,15 +30,12 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "password",
-                    models.CharField(
-                        max_length=128, verbose_name="password"
-                    )
+                    models.CharField(max_length=128, verbose_name="password"),
                 ),
                 (
                     "last_login",
                     models.DateTimeField(
-                        blank=True, null=True,
-                        verbose_name="last login"
+                        blank=True, null=True, verbose_name="last login"
                     ),
                 ),
                 (
@@ -59,8 +55,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         error_messages={
                             "unique": (
-                                "A user with that username"
-                                " already exists."
+                                "A user with that username" " already exists."
                             )
                         },
                         help_text=(
@@ -72,8 +67,7 @@ class Migration(migrations.Migration):
                         unique=True,
                         validators=[
                             (
-                                django.contrib.auth
-                                .validators.UnicodeUsernameValidator()
+                                django.contrib.auth.validators.UnicodeUsernameValidator()
                             )
                         ],
                         verbose_name="username",
@@ -82,15 +76,13 @@ class Migration(migrations.Migration):
                 (
                     "first_name",
                     models.CharField(
-                        blank=True, max_length=150,
-                        verbose_name="first name"
+                        blank=True, max_length=150, verbose_name="first name"
                     ),
                 ),
                 (
                     "last_name",
                     models.CharField(
-                        blank=True, max_length=150,
-                        verbose_name="last name"
+                        blank=True, max_length=150, verbose_name="last name"
                     ),
                 ),
                 (
@@ -120,36 +112,35 @@ class Migration(migrations.Migration):
                     "date_joined",
                     models.DateTimeField(
                         default=django.utils.timezone.now,
-                        verbose_name="date joined"
+                        verbose_name="date joined",
                     ),
                 ),
                 (
                     "created_at",
                     models.DateTimeField(
-                        auto_now_add=True,
-                        verbose_name="Record creation time"
+                        auto_now_add=True, verbose_name="Record creation time"
                     ),
                 ),
                 (
                     "updated_at",
                     models.DateTimeField(
-                        auto_now=True,
-                        verbose_name="Time of record change"
+                        auto_now=True, verbose_name="Time of record change"
                     ),
                 ),
                 (
                     "email",
                     models.EmailField(
-                        db_index=True,
-                        max_length=254, unique=True),
+                        db_index=True, max_length=254, unique=True
+                    ),
                 ),
                 (
                     "description",
                     models.CharField(blank=True, max_length=255, null=True),
                 ),
-                ("avatar",
-                    models.CharField(
-                        blank=True, max_length=255, null=True)),
+                (
+                    "avatar",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
                 ("is_mentor", models.BooleanField(default=False)),
                 (
                     "groups",
@@ -199,22 +190,20 @@ class Migration(migrations.Migration):
                 (
                     "created_at",
                     models.DateTimeField(
-                        auto_now_add=True,
-                        verbose_name="Record creation time"
+                        auto_now_add=True, verbose_name="Record creation time"
                     ),
                 ),
                 (
                     "updated_at",
                     models.DateTimeField(
-                        auto_now=True,
-                        verbose_name="Time of record change"
+                        auto_now=True, verbose_name="Time of record change"
                     ),
                 ),
                 (
                     "course",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="courses.course"
+                        to="courses.course",
                     ),
                 ),
                 (
@@ -245,15 +234,13 @@ class Migration(migrations.Migration):
                 (
                     "created_at",
                     models.DateTimeField(
-                        auto_now_add=True,
-                        verbose_name="Record creation time"
+                        auto_now_add=True, verbose_name="Record creation time"
                     ),
                 ),
                 (
                     "updated_at",
                     models.DateTimeField(
-                        auto_now=True,
-                        verbose_name="Time of record change"
+                        auto_now=True, verbose_name="Time of record change"
                     ),
                 ),
                 (
@@ -262,8 +249,10 @@ class Migration(migrations.Migration):
                         choices=[(1, "Student"), (2, "Mentor")]
                     ),
                 ),
-                ("alias", models.CharField(
-                    blank=True, max_length=25, null=True)),
+                (
+                    "alias",
+                    models.CharField(blank=True, max_length=25, null=True),
+                ),
                 (
                     "user",
                     models.ForeignKey(
@@ -293,15 +282,13 @@ class Migration(migrations.Migration):
                 (
                     "created_at",
                     models.DateTimeField(
-                        auto_now_add=True,
-                        verbose_name="Record creation time"
+                        auto_now_add=True, verbose_name="Record creation time"
                     ),
                 ),
                 (
                     "updated_at",
                     models.DateTimeField(
-                        auto_now=True,
-                        verbose_name="Time of record change"
+                        auto_now=True, verbose_name="Time of record change"
                     ),
                 ),
                 ("title", models.CharField(max_length=250)),
@@ -333,13 +320,11 @@ class Migration(migrations.Migration):
             model_name="internshipgroup",
             constraint=models.CheckConstraint(
                 check=models.Q(
-                    (
-                        "start_date__gt", models.F("end_date")
-                    ), _negated=True),
+                    ("start_date__gt", models.F("end_date")), _negated=True
+                ),
                 name="end_date_checker",
                 violation_error_message=(
-                    "End date cannot be early "
-                    "than start date."
+                    "End date cannot be early " "than start date."
                 ),
             ),
         ),

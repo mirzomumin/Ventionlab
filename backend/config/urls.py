@@ -27,12 +27,10 @@ docs_urlpatterns = [
     path(
         "swagger/",
         SpectacularSwaggerView.as_view(url_name="schema"),
-        name="swagger-ui"
+        name="swagger-ui",
     ),
     path(
-        "redoc/",
-        SpectacularRedocView.as_view(url_name="schema"),
-        name="redoc"
+        "redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"
     ),
 ]
 

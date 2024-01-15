@@ -1,5 +1,6 @@
-from apps.courses.models import Category, Course, Lesson, LessonInCourse, Tag
 from django.contrib import admin
+
+from apps.courses.models import Category, Course, Lesson, LessonInCourse, Tag
 
 
 @admin.register(Course)

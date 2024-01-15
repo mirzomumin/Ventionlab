@@ -1,11 +1,12 @@
-from apps.users.models import User
 from ckeditor.fields import RichTextField
-from common.models import BaseModel
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
+
+from apps.users.models import User
+from common.models import BaseModel
 
 
 class Category(models.Model):
@@ -30,8 +31,7 @@ class Course(BaseModel):
     class Meta:
         constraints = [
             UniqueConstraint(
-                Lower("title"),
-                name="course_insensitive_restriction"
+                Lower("title"), name="course_insensitive_restriction"
             )
         ]
         verbose_name = "Course"
@@ -56,8 +56,7 @@ class Lesson(models.Model):
     class Meta:
         constraints = [
             UniqueConstraint(
-                Lower("title"),
-                name="lesson_insensitive_restriction"
+                Lower("title"), name="lesson_insensitive_restriction"
             )
         ]
         verbose_name = "Lesson"
@@ -89,7 +88,8 @@ class Comment(models.Model):
     content_object = GenericForeignKey("content_type", "object_id")
 
     parent = models.ForeignKey(
-        "self", null=True, blank=True, on_delete=models.CASCADE)
+        "self", null=True, blank=True, on_delete=models.CASCADE
+    )
 
     class Meta:
         ordering = ("published_date",)

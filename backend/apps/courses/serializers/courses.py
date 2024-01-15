@@ -1,5 +1,6 @@
-from apps.courses.models import Course, Lesson, LessonInCourse, Tag
 from rest_framework import serializers
+
+from apps.courses.models import Course, Lesson, LessonInCourse, Tag
 
 
 class CourseSerializer(serializers.ModelSerializer):

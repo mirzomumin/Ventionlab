@@ -1,11 +1,13 @@
+from django import forms
+from django.contrib import admin
+
 from apps.users.forms import InternshipGroupForm, UserCreateForm
 from apps.users.models import (
     InternshipGroup,
     InternshipParticipant,
-    User, UserInCourse,
+    User,
+    UserInCourse,
 )
-from django import forms
-from django.contrib import admin
 
 
 @admin.register(User)
@@ -39,9 +41,14 @@ class UserAdmin(admin.ModelAdmin):
                 ),
                 (
                     "Permissions",
-                    {"fields": (
-                        "is_staff", "is_active", "is_mentor", "is_superuser"
-                    )},
+                    {
+                        "fields": (
+                            "is_staff",
+                            "is_active",
+                            "is_mentor",
+                            "is_superuser",
+                        )
+                    },
                 ),
             )
         else:

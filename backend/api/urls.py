@@ -1,11 +1,12 @@
-from api import views
-from apps.courses.urls import course_router
 from django.urls import include, path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
+
+from api import views
+from apps.courses.urls import course_router
 
 auth_urlpatterns = [
     path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

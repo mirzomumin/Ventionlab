@@ -18,8 +18,7 @@ from .factories import CategoryFactory, CourseFactory
     ],
 )
 def test_search_filter_course(
-    api_client, search_params,
-    expected_course_titles
+    api_client, search_params, expected_course_titles
 ):
     python_category = CategoryFactory.create(name="python", id=1)
     programming_category = CategoryFactory.create(name="programming", id=2)
@@ -29,7 +28,7 @@ def test_search_filter_course(
         title="Java Developer",
         level=3,
         category=[java_category, programming_category],
-    ) # noqa
+    )  # noqa
     CourseFactory.create(
         title="Python Developer",
         level=2,
@@ -41,6 +40,5 @@ def test_search_filter_course(
 
     assert response.status_code == status.HTTP_200_OK
     assert all(
-        course["title"] in expected_course_titles
-        for course in response.json()
+        course["title"] in expected_course_titles for course in response.json()
     )

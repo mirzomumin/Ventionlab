@@ -45,16 +45,15 @@ class Migration(migrations.Migration):
             model_name="course",
             name="language",
             field=models.CharField(
-                default=django.utils.timezone.now, max_length=32),
+                default=django.utils.timezone.now, max_length=32
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name="course",
             name="level",
             field=models.CharField(
-                choices=[
-                    ("E", "Easy"), ("M", "Medium"), ("A", "Advanced")
-                ],
+                choices=[("E", "Easy"), ("M", "Medium"), ("A", "Advanced")],
                 db_index=True,
                 max_length=2,
                 null=True,
@@ -79,8 +78,10 @@ class Migration(migrations.Migration):
                 ),
                 ("title", models.CharField(max_length=256, unique=True)),
                 ("description", models.TextField()),
-                ("tag", models.ManyToManyField(
-                    db_index=True, to="courses.tag")),
+                (
+                    "tag",
+                    models.ManyToManyField(db_index=True, to="courses.tag"),
+                ),
             ],
             options={
                 "verbose_name": "Lesson",
@@ -90,8 +91,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="course",
             name="category",
-            field=models.ManyToManyField(
-                db_index=True, to="courses.category"),
+            field=models.ManyToManyField(db_index=True, to="courses.category"),
         ),
         migrations.CreateModel(
             name="LessonInCourse",
@@ -110,21 +110,21 @@ class Migration(migrations.Migration):
                     "course",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        to="courses.course"
+                        to="courses.course",
                     ),
                 ),
                 (
                     "lesson",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        to="courses.lesson"
+                        to="courses.lesson",
                     ),
                 ),
             ],
             options={
                 "unique_together": {
                     ("course", "lesson"),
-                    ("course", "number")
+                    ("course", "number"),
                 },
             },
         ),

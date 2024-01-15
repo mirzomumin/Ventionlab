@@ -1,9 +1,10 @@
 from typing import Optional, TypeVar
 
-from common.models import BaseModel
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from common.models import BaseModel
 
 UserType = TypeVar("UserType", bound=AbstractUser)
 
@@ -22,9 +23,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(
-        self, email: str,
-        password: str,
-        **extra_fields
+        self, email: str, password: str, **extra_fields
     ) -> UserType:
         if password is None:
             raise TypeError("password is required")
@@ -45,7 +44,8 @@ class User(BaseModel, AbstractUser):
 
     description = models.CharField(max_length=255, null=True, blank=True)
     avatar = models.CharField(
-        max_length=255, null=True, blank=True)  # May use S3
+        max_length=255, null=True, blank=True
+    )  # May use S3
     is_mentor = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
@@ -82,7 +82,8 @@ class InternshipParticipant(BaseModel):
     role = models.PositiveSmallIntegerField(choices=UserRole.choices)
 
     user = models.ForeignKey(
-        to=User, on_delete=models.CASCADE,
+        to=User,
+        on_delete=models.CASCADE,
         related_name="internship_participants",
     )
     alias = models.CharField(max_length=25, null=True, blank=True)
@@ -100,7 +101,7 @@ class InternshipGroup(BaseModel):
     course = models.ForeignKey(
         to="courses.Course",
         on_delete=models.PROTECT,
-        related_name="internships"
+        related_name="internships",
     )
     participants = models.ManyToManyField(
         to=InternshipParticipant,

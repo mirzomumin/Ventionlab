@@ -1,6 +1,7 @@
-from apps.courses import views
 from django.urls import path
 from rest_framework.routers import SimpleRouter
+
+from apps.courses import views
 
 course_router = SimpleRouter()
 course_router.register(r"", views.CourseViewSet, basename="course")

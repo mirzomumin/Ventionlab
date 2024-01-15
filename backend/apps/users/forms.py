@@ -1,8 +1,9 @@
-from apps.users.models import InternshipGroup, InternshipParticipant, User
-from apps.users.services.queries import build_participants_qs_by_role
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth.forms import UserCreationForm
+
+from apps.users.models import InternshipGroup, InternshipParticipant, User
+from apps.users.services.queries import build_participants_qs_by_role
 
 
 class UserCreateForm(UserCreationForm):
@@ -16,21 +17,28 @@ class InternshipGroupForm(forms.ModelForm):
         queryset=User.objects.filter(is_mentor=True),
         required=False,
         widget=FilteredSelectMultiple(
-            verbose_name="Mentors", is_stacked=False),
+            verbose_name="Mentors", is_stacked=False
+        ),
     )
 
     students = forms.ModelMultipleChoiceField(
         queryset=User.objects.all(),
         required=False,
         widget=FilteredSelectMultiple(
-            verbose_name="Students", is_stacked=True),
+            verbose_name="Students", is_stacked=True
+        ),
     )
 
     class Meta:
         model = InternshipGroup
         fields = (
-            "title", "course", "mentors",
-            "students", "start_date", "end_date")
+            "title",
+            "course",
+            "mentors",
+            "students",
+            "start_date",
+            "end_date",
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
