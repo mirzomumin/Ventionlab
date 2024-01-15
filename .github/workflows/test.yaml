@@ -4,9 +4,9 @@ on:
   workflow_run:
     workflows: ["workflow_1"]
     types: [completed]
-    branches:
+    # branches:
       # - 'dev'
-      - 'feature'
+      # - 'feature'
 
 jobs:
   build:
