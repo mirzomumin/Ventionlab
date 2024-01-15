@@ -1,5 +1,4 @@
 import factory
-
 from apps.courses.models import Category, Course
 
 
