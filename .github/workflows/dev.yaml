@@ -153,7 +153,11 @@ jobs:
           # fi
 
           if ((prs == 0)); then
-                gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin98,abduvohidd'
+                gh pr create -B master -H test \
+                 --title 'Merge test into master' \
+                 --body "${{ env.PR_URL }}" \
+                 -r 'mirzomumin98,abduvohidd'
+          fi
 
       # - name: Create Pull Request
       #   if: '!steps.check.outputs.skip'
