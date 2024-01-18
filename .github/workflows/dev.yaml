@@ -23,9 +23,10 @@ jobs:
           echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
 
       - name: Get Pull Request Number
-        run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
+        # run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: $(( github.event.number + 1 ))
 
       - name: Check if PR already exists
         id: check-pr-exists
@@ -45,6 +46,7 @@ jobs:
       - name: Create Pull Request
         if: '!steps.check-pr-exists.outputs.skip'
         run: |
+          echo 'PR NUMBER: ${{ env.PR_NUMBER }}''
           gh pr create \
           -B test \
           -H dev \
