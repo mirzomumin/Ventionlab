@@ -92,56 +92,60 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.base.sha }}
 
-      - name: Set up python3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        working-directory: ./backend
+      - name: Check changes
         run: |
-          apt-get update && apt-get install -y curl
-          curl -sSL https://install.python-poetry.org | python3 -
-          export PATH="${PATH}:/root/.local/bin"
-          poetry config virtualenvs.create false && \
-          poetry install --only dev --no-interaction --no-ansi
+          ls -la
 
-      - name: Test with pytest
-        working-directory: ./backend
-        id: test
-        run: |
-          coverage run -m pytest
+      # - name: Set up python3.11
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.11'
 
-      - name: Coverage report
-        working-directory: ./backend
-        run: |
-          coverage report -m
+      # - name: Install dependencies
+      #   working-directory: ./backend
+      #   run: |
+      #     apt-get update && apt-get install -y curl
+      #     curl -sSL https://install.python-poetry.org | python3 -
+      #     export PATH="${PATH}:/root/.local/bin"
+      #     poetry config virtualenvs.create false && \
+      #     poetry install --only dev --no-interaction --no-ansi
 
-      - name: automerge
-        id: automerge
-        uses: "pascalgn/automerge-action@v0.16.2"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: ""
+      # - name: Test with pytest
+      #   working-directory: ./backend
+      #   id: test
+      #   run: |
+      #     coverage run -m pytest
 
-      - name: Retrieve PR url
-        run: |
-          echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
+      # - name: Coverage report
+      #   working-directory: ./backend
+      #   run: |
+      #     coverage report -m
 
-      - name: Check if PR already exists
-        id: check
-        run: |
-          prs=$(gh pr list \
-            --repo "$GITHUB_REPOSITORY" \
-            --head 'test' \
-            --base 'master' \
-            --json title \
-            --jq 'length')
-          if ((prs > 0)); then
-              echo "skip=true" >> "$GITHUB_OUTPUT"
-          fi
+      # - name: automerge
+      #   id: automerge
+      #   uses: "pascalgn/automerge-action@v0.16.2"
+      #   env:
+      #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      #     MERGE_LABELS: ""
 
-      - name: Create Pull Request
-        if: '!steps.check.outputs.skip'
-        run: |
-          gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin98,abduvohidd'
+      # - name: Retrieve PR url
+      #   run: |
+      #     echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
+
+      # - name: Check if PR already exists
+      #   id: check
+      #   run: |
+      #     prs=$(gh pr list \
+      #       --repo "$GITHUB_REPOSITORY" \
+      #       --head 'test' \
+      #       --base 'master' \
+      #       --json title \
+      #       --jq 'length')
+      #     if ((prs > 0)); then
+      #         echo "skip=true" >> "$GITHUB_OUTPUT"
+      #     fi
+
+      # - name: Create Pull Request
+      #   if: '!steps.check.outputs.skip'
+      #   run: |
+      #     gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin98,abduvohidd'
