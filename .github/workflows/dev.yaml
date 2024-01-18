@@ -8,7 +8,7 @@ on:
         - dev
 
 env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 jobs:
@@ -21,6 +21,11 @@ jobs:
       - name: Retrieve PR url
         run: |
           echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
+
+      - name: Get Pull Request Number
+        run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if PR already exists
         id: check-pr-exists
@@ -40,7 +45,11 @@ jobs:
       - name: Create Pull Request
         if: '!steps.check-pr-exists.outputs.skip'
         run: |
-          gh pr create -B test -H dev --title 'Merge dev into test' --body "${{ env.PR_URL }}"
+          gh pr create \
+          -B test \
+          -H dev \
+          --title 'Merge dev into test #"${{ env.PR_NUMBER }}"' \
+          --body "${{ env.PR_URL }}"
 
   test:
     name: Test dev PR code
@@ -61,12 +70,6 @@ jobs:
     services:
       redis:
         image: redis
-        # Set health checks to wait until redis has started
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
         ports:
           - ${{ vars.CHANNEL_PORT }}:${{ vars.CHANNEL_PORT }}
 
@@ -78,21 +81,11 @@ jobs:
           POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         ports:
           - ${{ vars.DB_PORT }}:${{ vars.DB_PORT }}
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - uses: actions/checkout@v4
         with:
           ref: dev
-
-      - name: Check changes
-        run: |
-          ls -la
 
       - name: Set up python3.11
         uses: actions/setup-python@v4
@@ -120,7 +113,6 @@ jobs:
           coverage report -m
 
       - name: Get Pull Request Number
-        id: get_pr
         run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -148,18 +140,10 @@ jobs:
             --base 'master' \
             --json title \
             --jq 'length')
-          # if ((prs > 0)); then
-          #     echo "skip=true" >> "$GITHUB_OUTPUT"
-          # fi
 
           if ((prs == 0)); then
                 gh pr create -B master -H test \
-                 --title 'Merge test into master' \
+                 --title 'Merge test into master #"${{ env.PR_NUMBER }}"' \
                  --body "${{ env.PR_URL }}" \
                  -r 'mirzomumin98,abduvohidd'
           fi
-
-      # - name: Create Pull Request
-      #   if: '!steps.check.outputs.skip'
-      #   run: |
-      #     gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin98,abduvohidd'
