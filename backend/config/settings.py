@@ -23,25 +23,25 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
-    'unfold',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'corsheaders',
-    'ckeditor',
-    'crispy_forms',
-    'crispy_bootstrap5',
-    'rest_framework',
-    'drf_spectacular',
-    'rest_framework_simplejwt',
-    'django_filters',
-    'apps.users',
-    'apps.courses',
-    'apps.registration',
+    "daphne",
+    "unfold",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "corsheaders",
+    "ckeditor",
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "rest_framework",
+    "drf_spectacular",
+    "rest_framework_simplejwt",
+    "django_filters",
+    "apps.users",
+    "apps.courses",
+    "apps.registration",
 ]
 
 MIDDLEWARE = [
@@ -81,7 +81,9 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(os.environ["CHANNEL_HOST"], int(os.environ["CHANNEL_PORT"]))],
+            "hosts": [
+                (os.environ["CHANNEL_HOST"], int(os.environ["CHANNEL_PORT"]))
+            ],
         },
     },
 }
@@ -106,16 +108,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",  # noqa
     },
 ]
 
@@ -126,13 +128,13 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.SearchFilter',
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
     ),
 }
 
-FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
+FILTERS_DEFAULT_LOOKUP_EXPR = "icontains"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -173,6 +175,3 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     "SCHEMA_PATH_PREFIX": "/api/",
 }
-
-
-

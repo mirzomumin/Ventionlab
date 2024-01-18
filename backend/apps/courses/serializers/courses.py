@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.courses.models import Course, Lesson, LessonInCourse, Tag, Category
+from apps.courses.models import Course, Lesson, LessonInCourse, Tag
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class CourseSerializer(serializers.ModelSerializer):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = "__all__"
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -20,7 +20,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = "__all__"
 
 
 class LessonInCourseSerializer(serializers.ModelSerializer):
@@ -28,4 +28,4 @@ class LessonInCourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LessonInCourse
-        fields = ['id', 'lesson', 'number']
+        fields = ["id", "lesson", "number"]
