@@ -48,7 +48,7 @@ jobs:
           gh pr create \
           -B test \
           -H dev \
-          --title 'Merge dev into test #"${{ env.PR_NUMBER }}"' \
+          --title 'Merge dev into test #${{ env.PR_NUMBER }}' \
           --body "${{ env.PR_URL }}"
 
   test:
@@ -143,7 +143,7 @@ jobs:
 
           if ((prs == 0)); then
                 gh pr create -B master -H test \
-                 --title 'Merge test into master #"${{ env.PR_NUMBER }}"' \
+                 --title 'Merge test into master #${{ env.PR_NUMBER }}' \
                  --body "${{ env.PR_URL }}" \
                  -r 'mirzomumin98,abduvohidd'
           fi
