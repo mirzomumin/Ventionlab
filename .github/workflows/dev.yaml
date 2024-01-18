@@ -60,7 +60,6 @@ jobs:
       CHANNEL_PORT: ${{ vars.CHANNEL_PORT }}
     services:
       redis:
-        # Docker Hub image
         image: redis
         # Set health checks to wait until redis has started
         options: >-
@@ -72,7 +71,6 @@ jobs:
           - ${{ vars.CHANNEL_PORT }}:${{ vars.CHANNEL_PORT }}
 
       postgres:
-        # Docker Hub image
         image: postgres:14
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
@@ -123,7 +121,7 @@ jobs:
 
       - name: Get Pull Request Number
         id: get_pr
-        run: echo "pr_number=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
+        run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -133,26 +131,31 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: ""
-          PULL_REQUEST: "${{ env.pr_number }}"
+          PULL_REQUEST: "${{ env.PR_NUMBER }}"
 
       - name: Retrieve PR url
+        # Return pr url from dev branch
         run: |
           echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
 
-      - name: Check if PR already exists
+      - name: Create PR if it does not exist
         id: check
         run: |
+          # Get PRs count
           prs=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --head 'test' \
             --base 'master' \
             --json title \
             --jq 'length')
-          if ((prs > 0)); then
-              echo "skip=true" >> "$GITHUB_OUTPUT"
-          fi
+          # if ((prs > 0)); then
+          #     echo "skip=true" >> "$GITHUB_OUTPUT"
+          # fi
 
-      - name: Create Pull Request
-        if: '!steps.check.outputs.skip'
-        run: |
-          gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin98,abduvohidd'
+          if ((prs == 0)); then
+                gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin98,abduvohidd'
+
+      # - name: Create Pull Request
+      #   if: '!steps.check.outputs.skip'
+      #   run: |
+      #     gh pr create -B master -H test --title 'Merge test into master' --body "${{ env.PR_URL }}" -r 'mirzomumin98,abduvohidd'
