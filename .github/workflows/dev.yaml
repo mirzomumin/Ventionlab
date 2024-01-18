@@ -46,7 +46,7 @@ jobs:
       - name: Create Pull Request
         if: '!steps.check-pr-exists.outputs.skip'
         env:
-          PR_NUMBER: $(( github.event.number + 1 ))
+          PR_NUMBER: $(( ${{ github.event.number }} + 1 ))
         run: |
           echo 'PR NUMBER: ${{ env.PR_NUMBER }}''
           gh pr create \
