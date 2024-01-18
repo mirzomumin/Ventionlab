@@ -23,7 +23,6 @@ jobs:
           echo "PR_URL=$(gh pr view dev --json url | grep -Po '(?<="url":")[^"\\]*(?:\\.[^"\\]*)*')" >> $GITHUB_ENV
 
       - name: Get Pull Request Number
-        # run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLOSED_PR_NUMBER: ${{ github.event.number }}
@@ -114,8 +113,6 @@ jobs:
 
       - name: Get Pull Request Number
         run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
-        # run: echo "PR_NUMBER=$($(gh pr view dev \
-        #   --json number -q .number) + 1)" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
