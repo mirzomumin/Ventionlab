@@ -2,16 +2,18 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View, generic
+from rest_framework import permissions, status
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.viewsets import ModelViewSet
-from rest_framework import permissions, status
 from rest_framework.response import Response
-
-from apps.courses.models import Course, LessonInCourse
+from rest_framework.viewsets import ModelViewSet
 
 from apps.courses.forms import CourseForm
-from apps.courses.serializers.courses import CourseSerializer, LessonInCourseSerializer
+from apps.courses.models import Course, LessonInCourse
+from apps.courses.serializers.courses import (
+    CourseSerializer,
+    LessonInCourseSerializer,
+)
 
 
 class CourseViewSet(ModelViewSet):
@@ -22,17 +24,19 @@ class CourseViewSet(ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     filterset_fields = [
-        'title',
-        'level',
-        'category',
+        "title",
+        "level",
+        "category",
     ]
 
     search_fields = [
-        'title',
+        "title",
     ]
 
-    @action(detail=True, methods=['get'], url_path=r'lessons')
-    def get_course_lessons(self, request: HttpRequest, pk: int) -> HttpResponse:
+    @action(detail=True, methods=["get"], url_path=r"lessons")
+    def get_course_lessons(
+        self, request: HttpRequest, pk: int
+    ) -> HttpResponse:
         queryset = LessonInCourse.objects.filter(course=pk)
         serializer_class = LessonInCourseSerializer(queryset, many=True)
         return Response(serializer_class.data, status=status.HTTP_200_OK)
@@ -42,7 +46,7 @@ class CourseDeleteView(View):
     def post(self, request: HttpRequest, pk: int) -> HttpResponse:
         obj = get_object_or_404(Course, pk=pk)
         obj.delete()
-        return redirect('list')
+        return redirect("list")
 
 
 class CourseUpdateView(View):
@@ -83,4 +87,3 @@ class CourseCreateView(View):
         if form.is_valid():
             form.save()
         return redirect("/courses")
-

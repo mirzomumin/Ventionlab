@@ -8,24 +8,30 @@ on:
       - dev
 
 jobs:
-  run-linters:
-    name: Run linters
+  check-code:
+    name: Check python code style
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v1
+      - name: Set up python3.11
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Install Python dependencies
-        run: pip install black ruff
+      - name: Install dependancy manager
+        working-directory: ./backend/
+        run: |
+          apt-get update && apt-get install -y curl
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="/home/runner/.local/bin"
+          poetry config virtualenvs.create false && \
+          poetry install --only dev --no-interaction --no-ansi
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          black: true
-          ruff: true
+      - name: Run Linters
+        working-directory: ./backend/
+        run: |
+          black --check --config pyproject.toml .
+          isort --check-only --profile black .

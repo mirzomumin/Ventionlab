@@ -1,19 +1,19 @@
-from django.db import models
 from ckeditor.fields import RichTextField
-from common.models import BaseModel
-from django.db.models import UniqueConstraint
-from django.db.models.functions import Lower
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
+from django.db.models import UniqueConstraint
+from django.db.models.functions import Lower
 
 from apps.users.models import User
+from common.models import BaseModel
 
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self) -> str:
-        return f'Category: {self.name}'
+        return f"Category: {self.name}"
 
 
 class Course(BaseModel):
@@ -31,22 +31,21 @@ class Course(BaseModel):
     class Meta:
         constraints = [
             UniqueConstraint(
-                Lower('title'),
-                name='course_insensitive_restriction'
+                Lower("title"), name="course_insensitive_restriction"
             )
         ]
         verbose_name = "Course"
         verbose_name_plural = "Courses"
 
     def __str__(self) -> str:
-        return f'Course: {self.title}'
+        return f"Course: {self.title}"
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=128, unique=True)
 
     def __str__(self) -> str:
-        return f'Tag: {self.name}'
+        return f"Tag: {self.name}"
 
 
 class Lesson(models.Model):
@@ -57,15 +56,14 @@ class Lesson(models.Model):
     class Meta:
         constraints = [
             UniqueConstraint(
-                Lower('title'),
-                name='lesson_insensitive_restriction'
+                Lower("title"), name="lesson_insensitive_restriction"
             )
         ]
-        verbose_name = 'Lesson'
-        verbose_name_plural = 'Lessons'
+        verbose_name = "Lesson"
+        verbose_name_plural = "Lessons"
 
     def __str__(self) -> str:
-        return f'Lesson {self.title}'
+        return f"Lesson {self.title}"
 
 
 class LessonInCourse(models.Model):
@@ -74,10 +72,10 @@ class LessonInCourse(models.Model):
     number = models.IntegerField()
 
     class Meta:
-        unique_together = [['course', 'lesson'], ['course', 'number']]
+        unique_together = [["course", "lesson"], ["course", "number"]]
 
     def __str__(self):
-        return f'{self.lesson} in {self.course}'
+        return f"{self.lesson} in {self.course}"
 
 
 class Comment(models.Model):
@@ -87,13 +85,13 @@ class Comment(models.Model):
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey("content_type", "object_id")
 
-    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey(
+        "self", null=True, blank=True, on_delete=models.CASCADE
+    )
 
     class Meta:
-        ordering = ('published_date',)
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
-
-
+        ordering = ("published_date",)
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
