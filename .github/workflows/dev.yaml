@@ -110,7 +110,9 @@ jobs:
           coverage report -m
 
       - name: Get Pull Request Number
-        run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
+        # run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
+        run: echo "PR_NUMBER=$($(gh pr view dev \
+          --json number -q .number) + 1)" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
