@@ -24,7 +24,6 @@ jobs:
 
       - name: Get Pull Request Number
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLOSED_PR_NUMBER: ${{ github.event.number }}
         run: |
           echo "NEW_PR_NUMBER=$(($CLOSED_PR_NUMBER + 1))" >> $GITHUB_ENV
@@ -113,14 +112,11 @@ jobs:
 
       - name: Get Pull Request Number
         run: echo "PR_NUMBER=$(gh pr view dev --json number -q .number || echo "")" >> $GITHUB_ENV
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: automerge
         id: automerge
         uses: "pascalgn/automerge-action@v0.16.2"
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: ""
           PULL_REQUEST: "${{ env.PR_NUMBER }}"
 
