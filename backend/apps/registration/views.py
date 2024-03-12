@@ -7,5 +7,6 @@ def index(request: HttpRequest) -> HttpResponse:
         "username": "mirzomumin",
         "first_name": "Mirzomumin",
         "last_name": "Sobirjonov",
+        "email": "mirzomumin@list.ru",
     }
     return render(request, "index.html")
